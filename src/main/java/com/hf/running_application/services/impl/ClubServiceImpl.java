@@ -1,5 +1,6 @@
 package com.hf.running_application.services.impl;
 
+import com.hf.running_application.exceptions.ClubNotFoundException;
 import com.hf.running_application.model.clubDTO;
 import com.hf.running_application.entities.Club;
 import com.hf.running_application.repository.clubrepository;
@@ -30,6 +31,18 @@ public class ClubServiceImpl implements ClubService {
     public Club save(Club club) {
         return repository.save(club);
 
+    }
+
+    @Override
+    public  clubDTO  findClubById(long clubId) {
+        Club clubs  = repository.findById(clubId).orElseThrow(()-> new ClubNotFoundException("Club Not Found",clubId));
+        return mapToClubDTO(clubs);
+    }
+
+    @Override
+    public void updateClub(clubDTO clubdto) {
+        Club club= mapToClub(clubdto);
+        repository.save(club);
     }
 
     private Club mapToClub(clubDTO DTO){

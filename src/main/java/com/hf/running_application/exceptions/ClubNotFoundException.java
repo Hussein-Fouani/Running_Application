@@ -1,5 +1,8 @@
 package com.hf.running_application.exceptions;
 
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+
 public class ClubNotFoundException extends RuntimeException {
     private final String message;
     private final Long Id;

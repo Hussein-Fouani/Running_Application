@@ -62,4 +62,4 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## Contact
 
-For any questions or feedback, feel free to [contact me](mailto:youremail@example.com).
+For any questions or feedback, feel free to [contact me](mailto:hussein.fouani007@gmail.com).

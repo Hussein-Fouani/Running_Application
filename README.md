@@ -1,4 +1,4 @@
-# Runner Group Spring Boot MVC Project
+# Runner Group Spring  MVC Project
 
 This is a CRUD (Create, Read, Update, Delete) web application built using Spring Boot and Thymeleaf. It allows users to manage a list of runners and events along with their associated details.
 

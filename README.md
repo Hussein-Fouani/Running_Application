@@ -1,65 +1,72 @@
-# Runner Group Spring  MVC Project
+# Running Club Web App
 
-This is a CRUD (Create, Read, Update, Delete) web application built using Spring Boot and Thymeleaf. It allows users to manage a list of runners and events along with their associated details.
+A Spring Boot MVC web application for managing running clubs and their events, rendered server-side with Thymeleaf and secured with Spring Security form login.
+
+## Tech Stack
+
+- Java 17, Spring Boot 3.1
+- Spring MVC + Thymeleaf (with Thymeleaf Layout Dialect)
+- Spring Data JPA (Hibernate) + MySQL
+- Spring Security (form login, BCrypt password hashing)
+- Bean Validation, ModelMapper, Lombok
 
 ## Features
 
-- Create, view, update, and delete runners.
-- Create, view, update, and delete events.
-- View a list of all runners and events.
-
-## Technologies Used
-
-- Spring Boot
-- Thymeleaf
-- Spring Data JPA
-- MySQL (or any other database of your choice)
+- Clubs: list, search by title, view details, create, edit, delete
+- Events: list, view details, create an event for a club, edit, delete
+- User registration and login/logout (`/clubs`, `/login` and `/register` are public; other pages require login)
 
 ## Getting Started
 
 ### Prerequisites
 
-- Java Development Kit (JDK) installed
-- Maven installed
-- MySQL (or any other database) installed and running
+- JDK 17
+- MySQL running locally
 
-### Installation
+### Configuration
 
-1. Clone the repository:
+Create the database:
 
-```bash
-git clone https://github.com/yourusername/runner-group.git
+```sql
+CREATE DATABASE rungroupdb;
 ```
 
-2. Configure the `application.properties` file with your database credentials:
+Connection settings are in `src/main/resources/application.properties`:
 
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/your_database
-spring.datasource.username=your_username
-spring.datasource.password=your_password
+spring.datasource.url=jdbc:mysql://localhost:3306/rungroupdb
+spring.datasource.username=${DB_USERNAME:root}
+spring.datasource.password=${DB_PASSWORD:root}
 ```
 
-3. Build and run the project:
+Set the `DB_USERNAME` and `DB_PASSWORD` environment variables to override the default `root`/`root` credentials. Tables are created automatically (`spring.jpa.hibernate.ddl-auto=update`).
+
+### Run
 
 ```bash
-mvn spring-boot:run
+git clone https://github.com/Hussein-Fouani/Running_Application.git
+cd Running_Application
+./mvnw spring-boot:run
 ```
 
-## Usage
+The application starts on `http://localhost:8080`.
 
-1. Access the application at `http://localhost:8080`.
-2. Navigate through the application to perform CRUD operations on the list of runners and events.
+## Pages
 
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
-
-
-
-## Contact
-
-For any questions or feedback, feel free to [contact me](mailto:hussein.fouani007@gmail.com).
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/clubs` | List clubs |
+| GET | `/clubs/search?param=` | Search clubs by title |
+| GET/POST | `/clubs/new` | Create a club |
+| GET | `/clubs/{clubId}` | Club details |
+| GET/POST | `/clubs/{clubId}/edit` | Edit a club |
+| GET | `/clubs/{clubId}/delete` | Delete a club |
+| GET | `/events` | List events |
+| GET | `/events/{eventId}` | Event details |
+| GET | `/events/{clubId}/new` | New event form for a club |
+| POST | `/events/{clubId}` | Create an event for a club |
+| GET/POST | `/events/{eventId}/edit` | Edit an event |
+| GET | `/events/{eventId}/delete` | Delete an event |
+| GET | `/register` | Registration form |
+| POST | `/register/save` | Register a user |
+| GET | `/login` | Login page |

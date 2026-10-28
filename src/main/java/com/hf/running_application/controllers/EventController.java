@@ -51,19 +51,19 @@ public class EventController {
     }
 
 
-    @PostMapping("/events/{clubId")
+    @PostMapping("/events/{clubId}")
     public String createEvents(@PathVariable Long clubId, @ModelAttribute("event") EventDTO eventDTO,Model model){
         eventService.CreateEvent(clubId,eventDTO);
-        return "redirect:/clubs" + clubId;
+        return "redirect:/clubs/" + clubId;
 
-    } @PostMapping("/{eventId}/edit")
-    public String updateEvent(@PathVariable Long eventId, @Valid @ModelAttribute("event") EventDTO eventdto,Model model, BindingResult result){
+    } @PostMapping("/events/{eventId}/edit")
+    public String updateEvent(@PathVariable Long eventId, @Valid @ModelAttribute("event") EventDTO eventdto, BindingResult result,Model model){
         if(result.hasErrors()){
             model.addAttribute("event",eventdto);
             return "events-edit";
         }
         EventDTO eventDTO =eventService.findeventById(eventId);
-        eventDTO.setClub(eventDTO.getClub());
+        eventdto.setClub(eventDTO.getClub());
         eventdto.setId(eventId);
         eventService.updateEvents(eventdto);
         return "redirect:/events";
@@ -72,7 +72,7 @@ public class EventController {
     @GetMapping("/events/{eventId}/delete")
     public String deleteEvent(@PathVariable Long eventId){
         eventService.deleteEvent(eventId);
-        return "redirect:/events-list";
+        return "redirect:/events";
     }
 
 }

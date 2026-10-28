@@ -40,7 +40,7 @@ public class ClubController {
         return "clubs-create";
     }
     @PostMapping("/new")
-    public String createClub(@Valid @ModelAttribute("club") ClubDTO club, Model model, BindingResult result){
+    public String createClub(@Valid @ModelAttribute("club") ClubDTO club, BindingResult result, Model model){
         if (result.hasErrors()){
                 model.addAttribute("clubDTO",club);
                 return "clubs-create";
@@ -51,7 +51,7 @@ public class ClubController {
     @GetMapping("/{clubId}")
     public String clubDetail(@PathVariable("clubId") Long clubId,Model model){
         ClubDTO clubs = clubService.findClubById(clubId);
-        model.addAttribute("club",clubId);
+        model.addAttribute("club",clubs);
         return "clubs-detail";
 
     }
@@ -68,7 +68,7 @@ public class ClubController {
         clubService.deletebyId(clubId);
         return "redirect:/clubs";
     }
-    @GetMapping("/clubs/{clubId}/edit")
+    @GetMapping("/{clubId}/edit")
     public String editClubForm(@PathVariable("clubId") long clubId,Model model){
         ClubDTO club = clubService.findClubById(clubId);
         model.addAttribute("club",club);
@@ -76,7 +76,7 @@ public class ClubController {
     }
 
     @PostMapping("/{clubId}/edit")
-    public String updateClub(@PathVariable Long clubId, @Valid @ModelAttribute("club") ClubDTO clubdto,Model model, BindingResult result){
+    public String updateClub(@PathVariable Long clubId, @Valid @ModelAttribute("club") ClubDTO clubdto, BindingResult result,Model model){
        if(result.hasErrors()){
            model.addAttribute("event",clubdto);
            return "clubs-edit";

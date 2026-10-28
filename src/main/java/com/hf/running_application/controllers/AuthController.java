@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @AllArgsConstructor
-@NoArgsConstructor
 public class AuthController {
     private UserService userService;
 
@@ -31,7 +30,7 @@ public class AuthController {
 
     @GetMapping("/login")
     public String loginPage(){
-        return "login"
+        return "login";
     }
     @PostMapping("/register/save")
     public String register(@Valid @ModelAttribute("user")RegistrationUserDTO users, BindingResult result,Model model){
@@ -39,13 +38,13 @@ public class AuthController {
         if(ExisituserEmail !=null && ExisituserEmail .getEmail()!= null && !ExisituserEmail .getEmail().isEmpty()){
             result.rejectValue("Email","Email AlReady Exist");
         }
-        UserEntity ExistuserName = userService.findByUserName(ExisituserEmail .getUserName());
-        if (result.hasErrors()){
-            model.addAttribute("user",ExisituserEmail );
-            return "register";
-        }
+        UserEntity ExistuserName = userService.findByUserName(users.getUserName());
         if(ExistuserName !=null && ExistuserName.getUserName()!= null && !ExistuserName .getUserName().isEmpty()){
             result.rejectValue("UserName","UserName AlReady Exist");
+        }
+        if (result.hasErrors()){
+            model.addAttribute("user",users);
+            return "register";
         }
         userService.SaveUser(users);
         return "redirect:/clubs";

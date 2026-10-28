@@ -27,11 +27,11 @@ public class config {
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception {
-        return security.csrf(AbstractHttpConfigurer::disable)
+        security.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((req)->{
                     req.requestMatchers("/login", "/register", "/clubs", "/register/**", "/css/**", "/js/**")
                             .permitAll()
-                            .anyRequest()}).formLogin(form-> form.loginPage("/login")
+                            .anyRequest().authenticated();}).formLogin(form-> form.loginPage("/login")
                                     .defaultSuccessUrl("/clubs")
                                     .loginProcessingUrl("/login")
                                     .failureUrl("/login?error=true")

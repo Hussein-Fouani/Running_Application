@@ -9,7 +9,7 @@ import org.modelmapper.ModelMapper;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EventMapper {
-    private static ModelMapper modelMapper;
+    private static ModelMapper modelMapper = new ModelMapper();
     public static Event mapToEvent(EventDTO eventDTO){
       return modelMapper.map(eventDTO,Event.class);
 

@@ -7,7 +7,7 @@ import org.modelmapper.ModelMapper;
 
 @AllArgsConstructor
 public class ClubMapper {
-    private static ModelMapper modelMapper;
+    private static ModelMapper modelMapper = new ModelMapper();
 
     public static Club mapToClub(ClubDTO DTO){
         return modelMapper.map(DTO,Club.class);

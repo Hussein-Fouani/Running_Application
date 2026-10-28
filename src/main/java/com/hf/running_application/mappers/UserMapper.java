@@ -9,7 +9,7 @@ import org.modelmapper.ModelMapper;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserMapper {
-    private static ModelMapper modelMapper;
+    private static ModelMapper modelMapper = new ModelMapper();
 
     public static UserEntity mapToUserEntity(RegistrationUserDTO registrationUserDTO){
       return   modelMapper.map(registrationUserDTO,UserEntity.class);

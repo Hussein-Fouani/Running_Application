@@ -6,8 +6,8 @@ import com.hf.running_application.model.RegistrationUserDTO;
 import com.hf.running_application.repository.RoleRepository;
 import com.hf.running_application.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.apache.catalina.security.SecurityUtil;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.hf.running_application.mappers.UserMapper;
 
@@ -16,14 +16,15 @@ import java.util.Collections;
 
 @Service
 @AllArgsConstructor
-@NoArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;
+    private PasswordEncoder passwordEncoder;
     @Override
     public void SaveUser(RegistrationUserDTO userDTO) {
         UserEntity user = UserMapper.mapToUserEntity(userDTO);
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         Role role = roleRepository.findRoleByUserName(user.getUserName());
         user.setRoles(Collections.singletonList(role));
         userRepository.save(user);
